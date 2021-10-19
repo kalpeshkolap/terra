@@ -1,5 +1,9 @@
 
-
+provider "aws" {
+   access_key = "xxxxxxxxxxxxxxxxxx"
+   secret_key = "xxxxxxxxxxxxxxxxxxxx"
+   region =  "xxxxxxxx"
+}
 resource "aws_vpc" "my-vpc" {
     cidr_block =  "192.168.0.0/24"
     instance_tenancy =  "default"

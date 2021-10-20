@@ -106,7 +106,7 @@ resource "aws_instance" "pub" {
     ami             = each.value["ami"]
     instance_type   = each.value["instance_type"]
     key_name = "ub"
-    security_groups = aws_security_group.web-security.id
+    security_groups = ["${aws_security_group.web-security.id}"]
     tags = {
         Name = "webserver"
     }
@@ -118,7 +118,7 @@ resource "aws_instance" "pri" {
     ami             = each.value["ami"]
     instance_type   = each.value["instance_type"]
     key_name = "ub"
-    security_groups = aws_security_group.db-security.id
+    security_groups = ["${aws_security_group.db-security.id}"]
     tags = {
         Name = "dbserver"
     }

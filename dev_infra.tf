@@ -40,7 +40,7 @@ resource "aws_security_group" "web-security"{
 }
 
 resource "aws_security_group" "db-security"{
-    name        = "webserver"
+    name        = "database"
     description = "security"
     vpc_id      = aws_vpc.dev-infra.id
     dynamic "ingress" {

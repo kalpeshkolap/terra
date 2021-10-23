@@ -54,15 +54,19 @@ resource "aws_security_group" "db-security"{
         }
     }
 
-    egress  {
-        from_port   = 3306
-        to_port     = 3306
-        protocol    = "tcp"
-        cidr_blocks = ["192.168.0.0/25"]
+    dynamic "egress"  {
+        for_each = var.security-db     
+        content {
+            description  = egress.value.description
+            from_port    = egress.value.port
+            to_port      = egress.value.port
+            protocol     = egress.value.protocol
+            cidr_blocks  = egress.value.cidr_blocks
+        }
     
     }
     tags = {
-        Name = "Web-security_group"
+        Name = "Database-security-group"
     }
 }
 

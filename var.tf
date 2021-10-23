@@ -60,7 +60,7 @@ variable "security-web" {
             description = "ssh-access"
             port = 3306
             protocol = "tcp"
-            cidr_blocks = ["192.168.0.128/25",]
+            cidr_blocks = ["0.0.0.0/0",]
         }
     }
 }

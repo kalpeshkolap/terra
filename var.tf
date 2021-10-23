@@ -76,7 +76,7 @@ variable "security-db" {
     default = {
         "database" = {
             description = "mysql-access"
-            port = 80
+            port = 3306
             protocol = "tcp"
             cidr_blocks = ["192.168.0.0/25",]
         }

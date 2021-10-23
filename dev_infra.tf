@@ -1,14 +1,18 @@
 provider "aws" {
-    region     = "xxxxxxxxxx"
-    access_key = "xxxxxxxxxxxxxxxxxx"
-    secret_key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-    }
+    region     = "xxxxxxxxxxxxxxxxxxxx"
+    access_key = "xxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    secret_key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+}
 
 resource "aws_vpc" "dev-infra" {
     cidr_block           = "192.168.0.0/24"
     instance_tenancy     = "default"
     enable_dns_support   = true
     enable_dns_hostnames = true
+    tags = {
+        Name = "dev-infra"
+    }
 }
 
 
@@ -98,8 +102,7 @@ resource "aws_subnet" "dev-subnet" {
     for_each                = var.subnet
     map_public_ip_on_launch =  each.value["map_public_ip_on_launch"]
     cidr_block              = each.value["cidr_block"]
-    availability_zone = each.value["availability_zone"]
-
+    availability_zone     = data.aws_availability_zones.available-zones.names[1]
     tags = {
         Name = each.value["tags"]
     }
@@ -115,7 +118,7 @@ resource "aws_instance" "pub" {
     security_groups = ["${aws_security_group.web-security.id}"]
     lifecycle {
         create_before_destroy = true
-      }
+        }
     tags = {
         Name = "webserver"
     }

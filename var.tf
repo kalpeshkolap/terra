@@ -10,14 +10,14 @@
         0 = {
             map_public_ip_on_launch = true
             cidr_block = "192.168.0.0/25"
-            tags = "public"
             availability_zone = availability_zone = data.aws_availability_zones.available-zones.names[0]
+            tags = "public"
         },
         1 = {
             map_public_ip_on_launch = false
             cidr_block = "192.168.0.128/25"
-            tags = "private"
             availability_zone = availability_zone = data.aws_availability_zones.available-zones.names[1]
+            tags = "private"
         }
     }
 

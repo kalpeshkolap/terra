@@ -4,19 +4,16 @@
             map_public_ip_on_launch = bool
             cidr_block = string
             tags = string
-            avilability_zone = string
         }))
     default = {
         0 = {
             map_public_ip_on_launch = true
             cidr_block = "192.168.0.0/25"
-            availability_zone = availability_zone = data.aws_availability_zones.available-zones.names[0]
             tags = "public"
         },
         1 = {
             map_public_ip_on_launch = false
             cidr_block = "192.168.0.128/25"
-            availability_zone = availability_zone = data.aws_availability_zones.available-zones.names[1]
             tags = "private"
         }
     }
@@ -24,7 +21,7 @@
     }
 
 data "aws_availability_zones" "available-zones" {
-  state = "available"
+    state = "available"
 }
 
 variable "instance" {

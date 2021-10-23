@@ -110,7 +110,11 @@ resource "aws_instance" "pub" {
     ami             = each.value["ami"]
     instance_type   = each.value["instance_type"]
     key_name = "ub"
+    user_data = file("web.sh")
     security_groups = ["${aws_security_group.web-security.id}"]
+    lifecycle {
+        create_before_destroy = true
+      }
     tags = {
         Name = "webserver"
     }
@@ -122,7 +126,11 @@ resource "aws_instance" "pri" {
     ami             = each.value["ami"]
     instance_type   = each.value["instance_type"]
     key_name = "ub"
+    user_data = file("database.sh")
     security_groups = ["${aws_security_group.db-security.id}"]
+    lifecycle {
+        create_before_destroy = true
+    }
     tags = {
         Name = "dbserver"
     }

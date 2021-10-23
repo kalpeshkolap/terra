@@ -98,7 +98,8 @@ resource "aws_subnet" "dev-subnet" {
     for_each                = var.subnet
     map_public_ip_on_launch =  each.value["map_public_ip_on_launch"]
     cidr_block              = each.value["cidr_block"]
-    availability_zone       = "us-west-2a"
+    availability_zone = each.value["availability_zone"]
+
     tags = {
         Name = each.value["tags"]
     }

@@ -102,7 +102,7 @@ resource "aws_subnet" "dev-subnet" {
     for_each                = var.subnet
     map_public_ip_on_launch =  each.value["map_public_ip_on_launch"]
     cidr_block              = each.value["cidr_block"]
-    availability_zone     = data.aws_availability_zones.available-zones.names[1]
+    availability_zone       = data.aws_availability_zones.available-zones.names[1]
     tags = {
         Name = each.value["tags"]
     }

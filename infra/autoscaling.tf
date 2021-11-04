@@ -57,37 +57,3 @@ resource "aws_cloudwatch_metric_alarm" "auto-alarm" {
   alarm_actions     = [aws_autoscaling_policy.auto-policy.arn]
 }
 
-#creating aws_descaling_policy
-resource "aws_autoscaling_policy" "deauto-policy" {
-  name                      = "target-tracking-policy"
-  adjustment_type           = "ChangeInCapacity"
-  policy_type               = "TargetTrackingScaling"
-  autoscaling_group_name    = aws_autoscaling_group.auto-group.name
-  estimated_instance_warmup = 200
-
-  target_tracking_configuration {
-    predefined_metric_specification {
-      predefined_metric_type = "ASGAverageCPUUtilization"
-    }
-    target_value = "40"
-  }
-}
-
-#monitoring
-resource "aws_cloudwatch_metric_alarm" "deauto-alarm" {
-  alarm_name          = "metric-alarm"
-  comparison_operator = "LessThanOrEqualToThreshold"
-  evaluation_periods  = "2"
-  metric_name         = "CPUUtilization"
-  namespace           = "AWS/EC2"
-  period              = "120"
-  statistic           = "Average"
-  threshold           = "40"
-
-  dimensions = {
-    AutoScalingGroupName = aws_autoscaling_group.auto-group.name
-  }
-
-  alarm_description = "This metric monitors ec2 cpu utilization"
-  alarm_actions     = [aws_autoscaling_policy.auto-policy.arn]
-}

@@ -9,8 +9,8 @@ terraform {
 #storing state file to remote location(aws_s3 backend)
 terraform {
   backend "s3" {
-    bucket = "kalpeshterraformstate"
-    key    = "terraform.tfstate"
+    bucket = "********************"
+    key    = "***************"
     region = "us-west-2"
   }
 }
